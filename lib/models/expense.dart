@@ -13,24 +13,24 @@ class Expense {
     required this.type,
   });
 
-  // Convert Expense to a Map object for SQL storage
+  // Convert Expense object to a Map for SQL storage
   Map<String, dynamic> toMap() {
     return {
       'description': description,
       'amount': amount,
       'date': date.toIso8601String(),
-      'type': type, // Include the type in the map
+      'type': type, // Include transaction type (income or expense)
     };
   }
 
-  // Convert Map object to Expense
+  // Convert Map to Expense object
   factory Expense.fromMap(Map<String, dynamic> map) {
     return Expense(
-      id: map['id'], // Retrieve the id from the map (nullable)
+      id: map['id'], // Nullable id
       description: map['description'],
       amount: map['amount'],
       date: DateTime.parse(map['date']),
-      type: map['type'], // Retrieve the type from map
+      type: map['type'], // Transaction type
     );
   }
 }

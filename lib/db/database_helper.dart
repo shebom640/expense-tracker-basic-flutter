@@ -13,7 +13,7 @@ class DatabaseHelper {
   static const columnDate = 'date';
   static const columnType = 'type'; // 'income' or 'expense'
 
-  // Singleton class
+  // Singleton instance
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
@@ -31,7 +31,7 @@ class DatabaseHelper {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, _databaseName);
 
-    // Open the database and create the table if it does not exist
+    // Open the database and create the table if not exists
     return await openDatabase(path, version: _databaseVersion,
         onCreate: (Database db, int version) async {
       print("Creating database and transactions table...");
@@ -47,11 +47,11 @@ class DatabaseHelper {
       print("Table $table created successfully.");
     }, onUpgrade: (Database db, int oldVersion, int newVersion) async {
       print("Upgrading database from version $oldVersion to $newVersion...");
-      // Handle migrations if the schema changes
+      // Handle schema migrations if needed
     });
   }
 
-  // Insert a new transaction (either income or expense)
+  // Insert a new transaction (income or expense)
   Future<int> insertTransaction(Expense expense) async {
     Database db = await database;
     try {

@@ -19,7 +19,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
     _loadTransactions();
   }
 
-  // Load all transactions and balance
+  // Load transactions and balance from the database
   _loadTransactions() async {
     var transactions =
         await DatabaseHelper.instance.getTransactionsByType('expense');
@@ -33,7 +33,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
     });
   }
 
-  // Navigate to add new transaction
+  // Navigate to add a new transaction
   _navigateToAddTransaction() async {
     final newTransaction = await Navigator.push(
       context,
@@ -41,14 +41,14 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
     );
     if (newTransaction != null) {
       await DatabaseHelper.instance.insertTransaction(newTransaction);
-      _loadTransactions();
+      _loadTransactions(); // Reload transactions after adding a new one
     }
   }
 
-  // Delete a transaction by id
+  // Delete a transaction by its ID
   _deleteTransaction(int id) async {
     await DatabaseHelper.instance.deleteTransaction(id);
-    _loadTransactions();
+    _loadTransactions(); // Reload transactions after deletion
   }
 
   @override
